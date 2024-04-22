@@ -1,0 +1,17 @@
+import random
+
+wordbank = ['fire', 'water', 'earth', 'air', 'lava', 'lightning', 'ice']
+
+# Choosing a random word from the word bank
+word_to_guess = random.choice(wordbank)
+
+# List to store guessed letters
+guessed_letters = []
+
+# Number of attempts for guessing letters
+attempts = 26
+
+# Number of attempts for guessing the word
+word_attempts = 3
+
+print(f"Welcome to the Word Guessing Game! \nTry to guess the word.")
