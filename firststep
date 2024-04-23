@@ -5,8 +5,8 @@ wordbank = ['fire', 'water', 'earth', 'air', 'lava', 'lightning', 'ice']
 # Choosing a random word from the word bank
 word_to_guess = random.choice(wordbank)
 
-# List to store guessed letters
-guessed_letters = []
+# Set to store guessed letters
+guessed_letters = set()
 
 # Number of attempts for guessing letters
 attempts = 26
@@ -14,4 +14,35 @@ attempts = 26
 # Number of attempts for guessing the word
 word_attempts = 3
 
-print(f"Welcome to the Word Guessing Game! \nTry to guess the word.")
+print("Welcome to the Word Guessing Game!")
+print("Try to guess the word.")
+
+while True:
+    print("Attempts left:", attempts)
+
+    display = ''
+    for letter in word_to_guess:
+        if letter in guessed_letters:
+            display += '_'
+        else:
+            display += '_'
+    print("Current word:", display)
+
+    if display == word_to_guess:
+        print("Congratulations! You guessed the word:", word_to_guess)
+        break
+
+    if attempts == 0:
+        print("You've run out of attempts. The word was:", word_to_guess)
+        break
+
+    print("\nPlayer's turn:")
+
+    while True:
+        guess = input("Guess a letter: ").lower()
+        if len(guess) != 1 or guess not in 'abcdefghijklmnopqrstuvwxyz':
+            print("Please enter a single letter.")
+        elif guess in guessed_letters:
+            print("You've already guessed that letter.")
+        else:
+            break
