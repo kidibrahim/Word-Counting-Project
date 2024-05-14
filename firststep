@@ -1,12 +1,13 @@
 import random
 
+# List of words to choose from
 wordbank = ['fire', 'water', 'earth', 'air', 'lava', 'lightning', 'ice']
 
 # Choosing a random word from the word bank
 word_to_guess = random.choice(wordbank)
 
-# List to store guessed letters
-guessed_letters = []
+# Dictionary to store guessed letters and their occurrences
+guessed_letters = {}
 
 # Number of attempts for guessing letters
 attempts = 26
@@ -14,30 +15,37 @@ attempts = 26
 # Number of attempts for guessing the word
 word_attempts = 3
 
+# Printing the welcome message
 print("Welcome to the Word Guessing Game!")
 print("Try to guess the word.")
 
+# Main game loop
 while True:
     print("Attempts left:", attempts)
+    print("Word guess attempts left:", word_attempts)
 
+    # Displaying the word with guessed letters filled in
     display = ''
     for letter in word_to_guess:
         if letter in guessed_letters:
-            display += '_'
+            display += letter
         else:
             display += '_'
     print("Current word:", display)
 
+    # Checking if the word has been guessed
     if display == word_to_guess:
         print("Congratulations! You guessed the word:", word_to_guess)
         break
 
-    if attempts == 0:
+    # Checking if no attempts left
+    if attempts == 0 or word_attempts == 0:
         print("You've run out of attempts. The word was:", word_to_guess)
         break
 
     print("\nPlayer's turn:")
 
+    # Asking the player for a letter guess
     while True:
         guess = input("Guess a letter: ").lower()
         if len(guess) != 1 or guess not in 'abcdefghijklmnopqrstuvwxyz':
@@ -47,9 +55,10 @@ while True:
         else:
             break
 
-    guessed_letters.add(guess)
-
+    # Counting occurrences of guessed letter in the word
     occurrences = word_to_guess.count(guess)
+    guessed_letters[guess] = occurrences
+
     if occurrences > 0:
         print("Occurrences of that letter in the word:", occurrences)
     else:
@@ -57,7 +66,8 @@ while True:
 
     attempts -= 1
 
-    if attempts > 0:
+    # Asking the player if they want to guess the whole word
+    if attempts > 0 and word_attempts > 0:
         while True:
             choice = input("Would you like to guess the word? (y/n): ").lower()
             if choice == 'y':
@@ -75,6 +85,5 @@ while True:
                 break
             else:
                 print("Invalid choice. Please enter 'y' or 'n'.")
-    else:
-        print("You've run out of attempts. The word was:", word_to_guess)
+    if display == word_to_guess or word_attempts == 0:
         break
